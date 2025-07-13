@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roopastra: AI-Powered Virtual Try-Ons</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --plum: #4A235A;
+            --gold: #F1C40F;
+            --off-white: #F8F4F9;
+            --navy-800: #1E3A8A;
+            --navy-700: #1D4ED8;
+            --navy-600: #2563EB;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--off-white);
+            color: var(--plum);
+            scroll-behavior: smooth;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(74,35,90,0.9) 0%, rgba(241,196,15,0.7) 100%);
+        }
+        
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(74,35,90,0.2);
+        }
+        
+        .demo-phone {
+            box-shadow: 0 30px 60px rgba(74,35,90,0.3);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.6s ease-out;
+        }
+        
+        .animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .tilt-effect {
+            transition: transform 0.3s ease;
+        }
+        
+        .tilt-effect:hover {
+            transform: rotate(2deg) scale(1.02);
+        }
+        
+        .carousel-slide {
+            transition: opacity 0.5s ease;
+        }
+        
+        .carousel-slide.active {
+            opacity: 1;
+        }
+        
+        .carousel-slide:not(.active) {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white bg-opacity-90 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-purple-800 flex items-center justify-center text-white font-bold text-xl mr-2">R</div>
+                <span class="text-xl font-bold text-navy-800">
+                    <a href="#home">Roopastra</a>
+                </span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#how-it-works" class="text-navy-800 hover:text-yellow-500 transition">How It Works</a>
+                <a href="#features" class="text-navy-800 hover:text-yellow-500 transition">Features</a>
+                <a href="#demo" class="text-navy-800 hover:text-yellow-500 transition">Demo</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-navy-800">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white w-full px-6 py-4 absolute left-0 shadow-lg">
+            <a href="#how-it-works" class="block py-2 text-navy-800 hover:text-yellow-500">How It Works</a>
+            <a href="#features" class="block py-2 text-navy-800 hover:text-yellow-500">Features</a>
+            <a href="#demo" class="block py-2 text-navy-800 hover:text-yellow-500">Demo</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden bg-[url('images/background-3.jpg')] bg-cover bg-center" id="home">
+        <div class="absolute inset-0 bg-primary opacity-70 z-10"></div>
+        
+        <div class="container mx-auto px-6 relative z-20 text-center backdrop-blur-sm bg-black bg-opacity-30 p-12 rounded-2xl">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">Roopastra: AI-Powered Virtual Try-Ons</h1>
+            <p class="text-xl md:text-2xl text-white mb-10 max-w-3xl mx-auto">See yourself in your favorite styles—no changing rooms required.</p>
+            <a href="#demo">
+            <button class="bg-purple-900 hover:bg-purple-400 text-purple-100 font-bold py-3 px-8 rounded-full text-lg transition transform hover:scale-105">
+                Try It Now
+            </button>
+            </a>
+        </div>
+        
+        <div class="absolute bottom-10 left-0 right-0 text-center z-20 animate-bounce">
+            <a href="#how-it-works" class="text-white text-3xl">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-purple-900 mb-16">How It Works</h2>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-start space-y-12 md:space-y-0">
+                <!-- Step 1 -->
+                <div class="flex flex-col items-center text-center max-w-xs mx-auto slide-in-left">
+                    <div class="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-camera text-4xl text-purple-900"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-purple-900 mb-3">1. Scan Yourself</h3>
+                    <p class="text-gray-600">Upload a selfie or use live camera to create your digital avatar.</p>
+                </div>
+                
+                <!-- Arrow -->
+                <div class="hidden md:block mt-16">
+                    <br>
+                    <i class="fas fa-arrow-right text-3xl text-yellow-500"></i>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="flex flex-col items-center text-center max-w-xs mx-auto fade-in">
+                    <div class="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-tshirt text-4xl text-purple-900"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-purple-900 mb-3">2. Choose Styles</h3>
+                    <p class="text-gray-600">Browse curated outfits & accessories from top brands.</p>
+                </div>
+                
+                <!-- Arrow -->
+                <div class="hidden md:block mt-16">
+                    <br>
+                    <i class="fas fa-arrow-right text-3xl text-yellow-500"></i>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="flex flex-col items-center text-center max-w-xs mx-auto slide-in-right">
+                    <div class="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-magic text-4xl text-purple-900"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-purple-900 mb-3">3. Instant Preview</h3>
+                    <p class="text-gray-600">Watch AI-driven fitting in real time with perfect proportions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Deep-Dive -->
+    <section id="features" class="py-20 bg-purple-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-purple-900 mb-16">Advanced Technology</h2>
+            
+            <!-- Feature 1 -->
+            <div class="flex flex-col md:flex-row items-center mb-20">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10 slide-in-left">
+                    <h3 class="text-2xl font-bold text-purple-900 mb-4">Real-Time Pose Estimation</h3>
+                    <p class="text-gray-600 mb-6">Our AI accurately maps your body's position and movement, ensuring clothes drape naturally as you move, just like in real life.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-yellow-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600">Tracks 32 key body points for precise fitting</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-yellow-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600">Works with any camera quality</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-yellow-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600">Adjusts for different lighting conditions</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 tilt-effect">
+                    <img src="images/fea-1.jpeg" alt="Pose estimation" class="rounded-xl shadow-xl w-full">
+                </div>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="flex flex-col md:flex-row-reverse items-center mb-20">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pl-10 slide-in-right">
+                    <h3 class="text-2xl font-bold text-purple-900 mb-4">Fabric Simulation & Lighting</h3>
+                    <p class="text-gray-600 mb-6">Experience true-to-life material behavior with our physics-based fabric simulation that accounts for weight, stretch, and texture.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-yellow-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600">Simulates over 200 fabric types</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-yellow-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600">Dynamic lighting for realistic shadows</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-yellow-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600">Seasonal color adaptation</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 tilt-effect">
+                    <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Fabric simulation" class="rounded-xl shadow-xl w-full">
+                </div>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10 slide-in-left">
+                    <h3 class="text-2xl font-bold text-purple-900 mb-4">Personalized Style Recommendations</h3>
+                    <p class="text-gray-600 mb-6">Our AI learns your preferences and body type to suggest styles that flatter your unique shape and match your taste.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-yellow-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600">Adapts to your fashion preferences</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-yellow-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600">Considers occasion and weather</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-yellow-500 mt-1 mr-2"></i>
+                            <span class="text-gray-600">Suggests complete outfits</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 tilt-effect">
+                    <img src="/images/Ai.jpeg" alt="Style recommendations" class="rounded-xl shadow-xl w-full">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo -->
+    <section id="demo" class="py-10 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-purple-900 mb-10">See It In Action</h2>
+            
+            <div class="relative max-w-4xl mx-auto">
+                <div class="demo-phone bg-white p-2 rounded-3xl relative z-10 mx-auto" style="max-width: 300px;">
+                    <div class="relative overflow-hidden rounded-2xl bg-gray-100" style="height: 520px;">
+                        <!-- Carousel -->
+                        <div class="relative h-full w-full">
+                            <div class="carousel-slide active h-full w-full">
+                                <img src="images/test-1.jpg" alt="Demo 1" class="h-full w-full object-cover">
+                            </div>
+                            <div class="carousel-slide h-full w-full">
+                                <img src="images/test-2.jpg" alt="Demo 2" class="h-full w-full object-cover">
+                            </div>
+                            <div class="carousel-slide h-full w-full">
+                                <img src="images/test-3.png" alt="Demo 3" class="h-full w-full object-cover">
+                            </div>
+                            <div class="carousel-slide h-full w-full">
+                                <img src="images/test-4.png" alt="Demo 3" class="h-full w-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="absolute inset-0 bg-purple-900 rounded-3xl transform rotate-2 scale-95 opacity-10 -z-10"></div>
+                
+                <div class="flex justify-center mt-8 space-x-4">
+                    <button class="carousel-prev bg-purple-900 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-purple-500 transition">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-next bg-purple-900 text-white w-12 h-12 rounded-full flex items-center justify-center hover:bg-purple-500 transition">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <p class="text-gray-600 mb-6">Hover over the demo to pause the animation</p>
+                    <p class="text-purple-900 font-medium">Try different outfits in seconds with our seamless virtual fitting room</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-gradient-to-r from-purple-800 to-purple-400 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Shopping Experience?</h2>
+            <p class="text-xl mb-10 max-w-2xl mx-auto">Join thousands of fashion lovers who are discovering their perfect style with Roopastra.</p>
+            <button class="bg-amber-300 hover:bg-amber-400 text-purple-900 font-bold py-4 px-12 rounded-full text-lg transition transform hover:scale-105 mb-8">
+                Get Started for Free
+            </button>
+            <p class="text-purple-200">Available on Web | Coming Soon to iOS & Android</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-purple-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-6 md:mb-0">
+                    <div class="w-10 h-10 rounded-full bg-purple-200 flex items-center justify-center text-purple-900 font-bold text-xl mr-2">R</div>
+                    <span class="text-xl font-bold">Roopastra</span>
+                </div>
+                
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#home" class="text-white hover:text-yellow-500 transition">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#home" class="text-white hover:text-yellow-500 transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#home" class="text-white hover:text-yellow-500 transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#home" class="text-white hover:text-yellow-500 transition">
+                        <i class="fab fa-gmail"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/roopastra/" target="_blank" class="text-white hover:text-yellow-500 transition">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-purple-300">© 2025 Roopastra. All rights reserved.</p>
+                    <div class="flex space-x-4 justify-center md:justify-end mt-2">
+                        <a href="#" class="text-purple-300 hover:text-white text-sm">Privacy Policy</a>
+                        <a href="#" class="text-purple-300 hover:text-white text-sm">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Intersection Observer for scroll animations
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.slide-in-left, .slide-in-right, .fade-in');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('animate');
+                        }
+                    });
+                }, {
+                    threshold: 0.1
+                });
+                
+                elements.forEach(element => {
+                    observer.observe(element);
+                });
+            };
+            
+            animateOnScroll();
+            
+            // Carousel functionality
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.carousel-slide');
+            const totalSlides = slides.length;
+            let carouselInterval;
+            
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[index].classList.add('active');
+                currentSlide = index;
+            }
+            
+            function nextSlide() {
+                const next = (currentSlide + 1) % totalSlides;
+                showSlide(next);
+            }
+            
+            function prevSlide() {
+                const prev = (currentSlide - 1 + totalSlides) % totalSlides;
+                showSlide(prev);
+            }
+            
+            function startCarousel() {
+                carouselInterval = setInterval(nextSlide, 4000);
+            }
+            
+            function stopCarousel() {
+                clearInterval(carouselInterval);
+            }
+            
+            // Initialize carousel
+            startCarousel();
+            
+            // Button controls
+            document.querySelector('.carousel-next').addEventListener('click', () => {
+                stopCarousel();
+                nextSlide();
+                startCarousel();
+            });
+            
+            document.querySelector('.carousel-prev').addEventListener('click', () => {
+                stopCarousel();
+                prevSlide();
+                startCarousel();
+            });
+            
+            // Pause on hover
+            const demoPhone = document.querySelector('.demo-phone');
+            demoPhone.addEventListener('mouseenter', stopCarousel);
+            demoPhone.addEventListener('mouseleave', startCarousel);
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Simple tilt effect
+            const tiltElements = document.querySelectorAll('.tilt-effect');
+            tiltElements.forEach(element => {
+                element.addEventListener('mousemove', (e) => {
+                    const rect = element.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const angleX = (y - centerY) / 20;
+                    const angleY = (centerX - x) / 20;
+                    
+                    element.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.02)`;
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    element.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
